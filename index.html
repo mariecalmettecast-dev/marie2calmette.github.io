@@ -5,41 +5,35 @@
 <title>Marie Calmette - Artiste</title>
 
 <style>
-body {margin:0;font-family:Arial;background:#fff;color:#111;}
+body {margin:0;font-family:Arial;background:#fff;color:#111;line-height:1.6;}
 
-header {
-  padding:20px 40px;
-  border-bottom:1px solid #eee;
+section {padding:60px 20px; max-width:1000px; margin:auto;}
+
+h1,h2 {font-weight:300;}
+
+.center {text-align:center;}
+
+/* HERO */
+.hero img {
+  width:180px;
+  border-radius:50%;
+  margin-bottom:20px;
 }
 
-/* CATÉGORIES */
-.categories {
-  text-align:center;
-  padding:20px;
+.quote {
+  font-style:italic;
+  margin-top:10px;
+  color:#555;
 }
 
-.categories button {
-  margin:5px;
-  padding:10px;
-  border:none;
-  background:#eee;
-  cursor:pointer;
-}
-
-.categories button.active {
-  background:#111;
-  color:#fff;
+/* TEXTE */
+.text-block {
+  margin-top:20px;
 }
 
 /* CARROUSEL */
 .carousel {
-  display:none;
   position:relative;
-  padding:20px;
-}
-
-.carousel.active {
-  display:block;
 }
 
 .track {
@@ -49,22 +43,16 @@ header {
   scroll-behavior:smooth;
 }
 
-.track::-webkit-scrollbar {
-  display:none;
-}
+.track::-webkit-scrollbar {display:none;}
 
-.art {
-  min-width:150px;
+.art img {
+  width:200px;
+  height:200px;
+  object-fit:cover;
   cursor:pointer;
 }
 
-.art img {
-  width:150px;
-  height:150px;
-  object-fit:cover;
-}
-
-/* BOUTONS */
+/* FLÈCHES */
 .arrow {
   position:absolute;
   top:50%;
@@ -76,8 +64,8 @@ header {
   cursor:pointer;
 }
 
-.left {left:10px;}
-.right {right:10px;}
+.left {left:0;}
+.right {right:0;}
 
 /* MODAL */
 .modal {
@@ -91,16 +79,9 @@ header {
   flex-direction:column;
 }
 
-.modal img {
-  max-width:80%;
-  max-height:70%;
-}
+.modal img {max-width:80%; max-height:70%;}
 
-.modal .info {
-  color:#fff;
-  text-align:center;
-  margin-top:10px;
-}
+.modal .info {color:#fff; text-align:center; margin-top:10px;}
 
 .close {
   position:absolute;
@@ -121,51 +102,87 @@ footer {
 
 <body>
 
-<header>
+<!-- HERO -->
+<section class="hero center">
+  <img src="URL_PHOTO_ARTISTE">
   <h1>Marie Calmette</h1>
-</header>
+  <p class="quote">"TA CITATION ICI"</p>
+</section>
 
-<!-- CATÉGORIES -->
-<div class="categories">
-  <button onclick="showCat('c1')" class="active">Catégorie 1</button>
-  <button onclick="showCat('c2')">Catégorie 2</button>
-  <button onclick="showCat('c3')">Catégorie 3</button>
-  <button onclick="showCat('c4')">Catégorie 4</button>
-  <button onclick="showCat('c5')">Catégorie 5</button>
-  <button onclick="showCat('c6')">Catégorie 6</button>
-  <button onclick="showCat('c7')">Catégorie 7</button>
-</div>
+<!-- DESCRIPTION -->
+<section class="center">
+  <h2>Présentation</h2>
+  <div class="text-block">
+    TON TEXTE DE PRÉSENTATION ICI
+  </div>
+</section>
 
-<!-- === CARROUSEL MODÈLE === -->
-<div id="c1" class="carousel active">
-<button class="arrow left" onclick="scrollCarousel(this,-300)">‹</button>
+<!-- BIOGRAPHIE -->
+<section>
+  <h2>Biographie</h2>
+  <div class="text-block">
+    TEXTE BIOGRAPHIE ICI
+  </div>
+</section>
 
-<div class="track">
+<!-- INFLUENCES -->
+<section>
+  <h2>Influences artistiques</h2>
+  <div class="text-block">
+    LISTE OU TEXTE DES INFLUENCES
+  </div>
+</section>
 
-<!-- OEUVRE -->
-<div class="art" onclick="openModal(this)">
-<img src="">
-<div class="data"
-data-title="Titre"
-data-year=""
-data-tech=""
-data-size=""
-data-desc="">
-</div>
-</div>
+<!-- FORMATIONS -->
+<section>
+  <h2>Formations</h2>
+  <div class="text-block">
+    LISTE DES FORMATIONS
+  </div>
+</section>
 
-</div>
+<!-- COTE -->
+<section>
+  <h2>Cote de l’artiste certifiée</h2>
+  <div class="text-block">
+    INFORMATIONS SUR LA COTE
+  </div>
+</section>
 
-<button class="arrow right" onclick="scrollCarousel(this,300)">›</button>
-</div>
+<!-- ACCOMPLISSEMENTS -->
+<section>
+  <h2>Accomplissements</h2>
+  <div class="text-block">
+    EXPOSITIONS, PRIX, ÉVÉNEMENTS
+  </div>
+</section>
 
-<!-- AUTRES CATÉGORIES -->
-<div id="c2" class="carousel"></div>
-<div id="c3" class="carousel"></div>
-<div id="c4" class="carousel"></div>
-<div id="c5" class="carousel"></div>
-<div id="c6" class="carousel"></div>
-<div id="c7" class="carousel"></div>
+<!-- GALERIE CARROUSEL -->
+<section>
+  <h2 class="center">Œuvres</h2>
+
+  <div class="carousel">
+    <button class="arrow left" onclick="scrollCarousel(-300)">‹</button>
+
+    <div class="track">
+
+      <!-- OEUVRE -->
+      <div class="art" onclick="openModal(this)">
+        <img src="">
+        <div class="data"
+        data-title="Titre"
+        data-year=""
+        data-tech=""
+        data-size=""
+        data-desc="">
+        </div>
+      </div>
+
+    </div>
+
+    <button class="arrow right" onclick="scrollCarousel(300)">›</button>
+  </div>
+</section>
 
 <!-- MODAL -->
 <div class="modal" id="modal">
@@ -181,17 +198,8 @@ data-desc="">
 </footer>
 
 <script>
-function showCat(id){
-  document.querySelectorAll('.carousel').forEach(c=>c.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-
-  document.querySelectorAll('.categories button').forEach(b=>b.classList.remove('active'));
-  event.target.classList.add('active');
-}
-
-function scrollCarousel(btn, distance){
-  const track = btn.parentElement.querySelector('.track');
-  track.scrollLeft += distance;
+function scrollCarousel(distance){
+  document.querySelector(".track").scrollLeft += distance;
 }
 
 function openModal(el){
