@@ -5,74 +5,86 @@
 <title>Marie Calmette - Artiste</title>
 
 <style>
-body {
-  margin:0;
-  font-family: 'Helvetica Neue', Arial;
-  background:#fff;
-  color:#111;
-}
+body {margin:0;font-family:Arial;background:#fff;color:#111;}
 
-/* HEADER */
 header {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
   padding:20px 40px;
   border-bottom:1px solid #eee;
 }
 
-header h1 {
-  font-weight:300;
-  letter-spacing:2px;
-}
-
-nav a {
-  margin-left:20px;
-  text-decoration:none;
-  color:#111;
-}
-
-/* HERO */
-.hero {
+/* CATÉGORIES */
+.categories {
   text-align:center;
-  padding:60px 20px;
+  padding:20px;
 }
 
-.hero h2 {
-  font-weight:300;
+.categories button {
+  margin:5px;
+  padding:10px;
+  border:none;
+  background:#eee;
+  cursor:pointer;
 }
 
-/* GALERIE */
-.gallery {
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap:20px;
-  padding:20px 40px;
+.categories button.active {
+  background:#111;
+  color:#fff;
+}
+
+/* CARROUSEL */
+.carousel {
+  display:none;
+  position:relative;
+  padding:20px;
+}
+
+.carousel.active {
+  display:block;
+}
+
+.track {
+  display:flex;
+  overflow-x:auto;
+  gap:10px;
+  scroll-behavior:smooth;
+}
+
+.track::-webkit-scrollbar {
+  display:none;
 }
 
 .art {
-  position:relative;
+  min-width:150px;
   cursor:pointer;
 }
 
 .art img {
-  width:100%;
-  height:350px;
+  width:150px;
+  height:150px;
   object-fit:cover;
 }
 
-.art:hover img {
-  opacity:0.85;
+/* BOUTONS */
+.arrow {
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:#000;
+  color:#fff;
+  border:none;
+  padding:10px;
+  cursor:pointer;
 }
+
+.left {left:10px;}
+.right {right:10px;}
 
 /* MODAL */
 .modal {
   display:none;
   position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
+  top:0;left:0;
+  width:100%;height:100%;
   background:#000;
   justify-content:center;
   align-items:center;
@@ -86,31 +98,23 @@ nav a {
 
 .modal .info {
   color:#fff;
-  margin-top:15px;
   text-align:center;
+  margin-top:10px;
 }
 
 .close {
   position:absolute;
   top:20px;
   right:30px;
-  font-size:30px;
   color:#fff;
+  font-size:30px;
   cursor:pointer;
-}
-
-/* CONTACT */
-.contact {
-  padding:60px 20px;
-  text-align:center;
-  border-top:1px solid #eee;
 }
 
 footer {
   text-align:center;
-  padding:20px;
-  font-size:12px;
-  color:#777;
+  padding:40px;
+  border-top:1px solid #eee;
 }
 </style>
 </head>
@@ -119,75 +123,94 @@ footer {
 
 <header>
   <h1>Marie Calmette</h1>
-  <nav>
-    <a href="#gallery">Œuvres</a>
-    <a href="#contact">Contact</a>
-  </nav>
 </header>
 
-<section class="hero">
-  <h2>Artiste peintre</h2>
-  <p>Exploration des formes, des textures et de l’émotion</p>
-</section>
+<!-- CATÉGORIES -->
+<div class="categories">
+  <button onclick="showCat('c1')" class="active">Catégorie 1</button>
+  <button onclick="showCat('c2')">Catégorie 2</button>
+  <button onclick="showCat('c3')">Catégorie 3</button>
+  <button onclick="showCat('c4')">Catégorie 4</button>
+  <button onclick="showCat('c5')">Catégorie 5</button>
+  <button onclick="showCat('c6')">Catégorie 6</button>
+  <button onclick="showCat('c7')">Catégorie 7</button>
+</div>
 
-<section id="gallery" class="gallery">
+<!-- === CARROUSEL MODÈLE === -->
+<div id="c1" class="carousel active">
+<button class="arrow left" onclick="scrollCarousel(this,-300)">‹</button>
 
-  <div class="art" onclick="openModal(this)">
-    <img src="https://via.placeholder.com/800">
-    <div class="data" 
-         data-title="Titre œuvre 1"
-         data-year="2024"
-         data-tech="Acrylique sur toile"
-         data-size="80 x 60 cm">
-    </div>
-  </div>
+<div class="track">
 
-  <div class="art" onclick="openModal(this)">
-    <img src="https://via.placeholder.com/800">
-    <div class="data" 
-         data-title="Titre œuvre 2"
-         data-year="2023"
-         data-tech="Technique mixte"
-         data-size="100 x 80 cm">
-    </div>
-  </div>
+<!-- OEUVRE -->
+<div class="art" onclick="openModal(this)">
+<img src="">
+<div class="data"
+data-title="Titre"
+data-year=""
+data-tech=""
+data-size=""
+data-desc="">
+</div>
+</div>
 
-</section>
+</div>
+
+<button class="arrow right" onclick="scrollCarousel(this,300)">›</button>
+</div>
+
+<!-- AUTRES CATÉGORIES -->
+<div id="c2" class="carousel"></div>
+<div id="c3" class="carousel"></div>
+<div id="c4" class="carousel"></div>
+<div id="c5" class="carousel"></div>
+<div id="c6" class="carousel"></div>
+<div id="c7" class="carousel"></div>
 
 <!-- MODAL -->
 <div class="modal" id="modal">
-  <span class="close" onclick="closeModal()">×</span>
-  <img id="modalImg">
-  <div class="info" id="modalInfo"></div>
+<span class="close" onclick="closeModal()">×</span>
+<img id="modalImg">
+<div class="info" id="modalInfo"></div>
 </div>
 
-<section id="contact" class="contact">
-  <h2>Contact</h2>
-  <p>Email : tonemail@email.com</p>
-  <p>Instagram : @toncompte</p>
-</section>
-
+<!-- CONTACT -->
 <footer>
-  © 2026 Marie Calmette
+<h2>Contact / Achat</h2>
+<p>Email : tonemail@email.com</p>
 </footer>
 
 <script>
-function openModal(element) {
-  const img = element.querySelector("img").src;
-  const data = element.querySelector(".data");
+function showCat(id){
+  document.querySelectorAll('.carousel').forEach(c=>c.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 
-  document.getElementById("modal").style.display = "flex";
-  document.getElementById("modalImg").src = img;
-
-  document.getElementById("modalInfo").innerHTML =
-    "<h3>" + data.dataset.title + "</h3>" +
-    "<p>" + data.dataset.year + "</p>" +
-    "<p>" + data.dataset.tech + "</p>" +
-    "<p>" + data.dataset.size + "</p>";
+  document.querySelectorAll('.categories button').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
 }
 
-function closeModal() {
-  document.getElementById("modal").style.display = "none";
+function scrollCarousel(btn, distance){
+  const track = btn.parentElement.querySelector('.track');
+  track.scrollLeft += distance;
+}
+
+function openModal(el){
+  const img = el.querySelector("img").src;
+  const d = el.querySelector(".data");
+
+  document.getElementById("modal").style.display="flex";
+  document.getElementById("modalImg").src=img;
+
+  document.getElementById("modalInfo").innerHTML =
+    "<h3>"+d.dataset.title+"</h3>"+
+    "<p>"+d.dataset.year+"</p>"+
+    "<p>"+d.dataset.tech+"</p>"+
+    "<p>"+d.dataset.size+"</p>"+
+    "<p>"+d.dataset.desc+"</p>";
+}
+
+function closeModal(){
+  document.getElementById("modal").style.display="none";
 }
 </script>
 
